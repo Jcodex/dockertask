@@ -1,0 +1,8 @@
+FROM ubuntu
+RUN apt-get update
+RUN apt-get -y install nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+RUN mkdir -p /usr/share/nginx/cache/fcgi
+RUN rm /etc/nginx/sites-enabled/default
+COPY wordsite.conf /etc/nginx/conf.d/wordsite.conf
+CMD ["nginx", "-g", "daemon off;"]

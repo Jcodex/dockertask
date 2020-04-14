@@ -1,0 +1,37 @@
+version: "3.3"
+networks:
+ mysqlnet:
+volumes:
+  php:
+services:
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: dockerfile
+    ports:
+     - 80:80/tcp
+    volumes:
+     - /home/wordsite:/home/wordsite
+     - php:/var/run/php
+    networks:
+     - mysqlnet
+
+  php-fpm:
+    build:
+      context: ./php
+      dockerfile: dockerfile
+    volumes:
+     - /home/wordsite:/home/wordsite
+     - php:/var/run/php
+    networks:
+     - mysqlnet
+
+  mysql:
+    build:
+      context: ./mysql
+      dockerfile: dockerfile
+    ports:
+     - 3306:3306/tcp
+    networks:
+     - mysqlnet
