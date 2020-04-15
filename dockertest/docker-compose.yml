@@ -3,6 +3,7 @@ networks:
  mysqlnet:
 volumes:
   php:
+  mysqld:
 services:
 
   nginx:
@@ -24,6 +25,7 @@ services:
     volumes:
      - /home/wordsite:/home/wordsite
      - php:/var/run/php
+     - mysqld:/var/run/mysqld
     networks:
      - mysqlnet
 
@@ -31,6 +33,9 @@ services:
     build:
       context: ./mysql
       dockerfile: dockerfile
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+     - mysqld:/var/run/mysqld
     ports:
      - 3306:3306/tcp
     networks:
