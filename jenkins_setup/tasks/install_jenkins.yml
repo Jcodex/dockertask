@@ -1,5 +1,11 @@
 ---
 
+     - name: Install groovy
+       apt:
+         name: groovy
+         state: latest
+         update_cache: yes
+
      - name: Install JDK
        apt:
          name: openjdk-8-jdk
@@ -20,6 +26,13 @@
          state: latest
          update_cache: yes
     
+     - name: Remove jenkins master password request
+       lineinfile:
+         path=/etc/default/jenkins 
+         regexp=^JENKINS_JAVA_OPTIONS
+         line=JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"
+       become: true
+
      - name: Start Jenkins
        systemd:
          name: jenkins
@@ -29,7 +42,3 @@
      - git:
          repo: https://github.com/Jcodex/dockertask.git
          dest: /home/mygit
-      
-     - name: Copy wordpress directory
-       command:
-         cmd: cp -r /home/mygit/wordsite /home/wordsite

@@ -1,3 +1,0 @@
-- name: testing include
-  debug:
-    msg: test success

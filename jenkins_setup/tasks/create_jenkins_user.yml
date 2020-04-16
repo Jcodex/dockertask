@@ -1,0 +1,15 @@
+---
+- name: Create initialization scripts directory
+  file: path=$JENKINS_HOME/init.groovy.d
+        state=directory
+        owner=jenkins
+        group=jenkins
+        mode=0775
+
+- name: Copy groovy script
+  command:
+    cmd: cp -r /home/mygit/security.groovy.j2 $JENKINS_HOME/init.groovy.d/*.groovy
+
+- name: Add initialization script to setup basic security
+  template: src=security.groovy.j2
+            dest=$JENKINS_HOME/init.groovy.d/security.groovy

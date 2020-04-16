@@ -1,2 +1,3 @@
 ---
 # defaults file for jenkins_setup
+admin_user_pass: 4444

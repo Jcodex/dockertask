@@ -6,3 +6,8 @@
      msg: going for install_jenkins
 
  - include: install_jenkins.yml
+
+ - name: trigger jenkins user creation
+   debug:
+     msg: going for create_jenkins_user.yml
+ - include: create_jenkins_user.yml
