@@ -1,2 +1,8 @@
 ---
 # tasks file for jenkins_setup
+
+ - name: trigger jenkins install
+   debug:
+     msg: going for install_jenkins
+
+ - include: install_jenkins.yml
