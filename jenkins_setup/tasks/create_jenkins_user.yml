@@ -7,10 +7,10 @@
         mode=0775
 
 - name: Skipping manual jenkins installation
-  linefile:
-    path=/etc/default/jenkins
-    regexp=^JAVA_ARGS=
-    line="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"
+  lineinfile:
+    path: /etc/default/jenkins
+    regexp: ^JAVA_ARGS=
+    line: "-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"
   become: true
 
 - name: Copy groovy script
