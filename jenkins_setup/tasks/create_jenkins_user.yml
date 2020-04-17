@@ -10,7 +10,7 @@
   lineinfile:
     path: /etc/default/jenkins
     regexp: ^JAVA_ARGS=
-    line: ""-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false""
+    line: 'JAVA_ARGS="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"'
   become: true
 
 - name: Copy groovy script
