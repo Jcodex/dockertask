@@ -1,11 +1,5 @@
 ---
 
-     - name: Install groovy
-       apt:
-         name: groovy
-         state: latest
-         update_cache: yes
-
      - name: Install JDK
        apt:
          name: openjdk-8-jdk
@@ -17,6 +11,10 @@
          url: https://pkg.jenkins.io/debian/jenkins.io.key
          state: present
 
+     - name: Adding jenkins PUB key
+       command:
+         cmd: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9B7D32F2D50582E6
+
      - apt_repository :
          repo: 'deb http://pkg.jenkins.io/debian-stable binary/'
 
@@ -25,13 +23,6 @@
          name: jenkins
          state: latest
          update_cache: yes
-    
-     - name: Remove jenkins master password request
-       lineinfile:
-         path=/etc/default/jenkins 
-         regexp=^JENKINS_JAVA_OPTIONS
-         line=JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"
-       become: true
 
      - name: Start Jenkins
        systemd:

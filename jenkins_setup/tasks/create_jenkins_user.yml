@@ -1,15 +1,23 @@
 ---
 - name: Create initialization scripts directory
-  file: path=$JENKINS_HOME/init.groovy.d
+  file: path=/var/lib/jenkins/init.groovy.d
         state=directory
         owner=jenkins
         group=jenkins
         mode=0775
 
+- name: Skipping manual jenkins installation
+  linefile:
+    path=/etc/default/jenkins
+    regexp=^JAVA_ARGS=
+    line="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"
+  become: true
+
 - name: Copy groovy script
   command:
-    cmd: cp -r /home/mygit/security.groovy.j2 $JENKINS_HOME/init.groovy.d/*.groovy
-
-- name: Add initialization script to setup basic security
-  template: src=security.groovy.j2
-            dest=$JENKINS_HOME/init.groovy.d/security.groovy
+    cmd: cp -r /home/mygit/security.groovy /var/lib/jenkins/init.groovy.d
+ 
+- name: Restart jenkins server
+  service:
+    name: jenkins
+    state: restarted
