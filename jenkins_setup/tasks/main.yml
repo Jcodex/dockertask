@@ -1,5 +1,5 @@
 ---
-# tasks file for jenkins_setup
+ tasks file for jenkins_setup
 
  - name: trigger jenkins install
    debug:
@@ -11,3 +11,15 @@
    debug:
      msg: going for create_jenkins_user.yml
  - include: create_jenkins_user.yml
+
+ - name: trigger jenkins configuration
+   debug:
+     msg: going for configure_jenkins
+
+ - include: configure_jenkins.yml
+
+ - name: trigger docker install
+   debug:
+     msg: going for install_docker
+
+ - include: install_docker.yml
