@@ -16,3 +16,7 @@
     chdir: /home/mygit/dockertest
     cmd: sudo docker-compose up -d
 
+- name: Restart jenkins
+  service:
+    name: jenkins
+    state: restarted
