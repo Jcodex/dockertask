@@ -13,7 +13,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo docker rm -r $(sudo docker ps -a -q)
+      <command>sudo docker rm -f $(sudo docker ps -a -q)
 sudo cp -a /home/mygit/dockertest/. /var/lib/jenkins/jobs/test
 sudo chown -R jenkins /var/lib/jenkins/jobs
 cd /var/lib/jenkins/jobs/test

@@ -11,9 +11,15 @@
     state: present
     update_cache: yes
 
+- name: Install python lxml
+  package:
+    name:  python3-lxml
+    state: present
+    update_cache: yes
+
 - pip:
     name: python-jenkins
-
+    name: lxml
 - jenkins_job:
     config: "{{ lookup('file', 'deploywordpressjob.xml') }}"
     name: deploy_site
