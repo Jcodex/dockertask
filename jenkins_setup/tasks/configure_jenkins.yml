@@ -19,7 +19,20 @@
 
 - pip:
     name: python-jenkins
+
+- pip:
     name: lxml
+
+- name: Restart jenkins
+  service:
+    name: jenkins
+    state: restarted
+
+- name: Wait untill jenkins resart
+  wait_for:
+    timeout: 20
+  delegate_to: localhost
+
 - jenkins_job:
     config: "{{ lookup('file', 'deploywordpressjob.xml') }}"
     name: deploy_site
