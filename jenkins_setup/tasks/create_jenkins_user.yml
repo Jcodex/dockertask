@@ -22,3 +22,12 @@
   service:
     name: jenkins
     state: restarted
+
+- name: wait for jenkins service
+  wait_for:
+    timeout: 10
+  delegate_to: localhost
+
+- name: remove used groovy scripts
+  command:
+    cmd: rm -r /var/lib/jenkins/init.groovy.d        
