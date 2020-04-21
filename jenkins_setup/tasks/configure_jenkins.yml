@@ -5,9 +5,14 @@
     line: 'jenkins ALL=(ALL) NOPASSWD: ALL'
   become: true
 
+- name: Restart jenkins
+  service:
+    name: jenkins
+    state: restarted
+
 - name: Wait untill jenkins apply changes
   wait_for:
-    timeout: 10
+    timeout: 20
   delegate_to: localhost
 
 - name: Download git plugin
@@ -16,6 +21,7 @@
     url_username: admin
     url_password: admin
     url: http://localhost:8080
+  ignore_errors: yes
 
 - name: Install python pip
   package:

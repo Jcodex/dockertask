@@ -16,6 +16,10 @@
        apt_key:
          url: https://pkg.jenkins.io/debian/jenkins.io.key
          state: present
+       retries: 3
+       delay: 3
+       register: result
+       until: result is succeeded
 
      - name: Adding jenkins PUB key
        command:
