@@ -1,7 +1,0 @@
----
-- name: Install plugin
-  jenkins_plugin:
-    name: build-pipeline-plugin
-    url_username: admin
-    url_password: admin
-    url: http://localhost:8080
