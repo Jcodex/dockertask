@@ -1,5 +1,11 @@
 ---
 
+     - name: Install Ansible
+       apt: 
+         name: ansible
+         state: latest
+         update_cache: yes
+
      - name: Install JDK
        apt:
          name: openjdk-8-jdk

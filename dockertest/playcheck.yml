@@ -1,0 +1,58 @@
+---
+- name: rebuild updated containers 
+  hosts: localhost
+  tasks:
+     
+  - name: check current nginx
+    shell:  
+      cmd: ls -ld nginx|awk '{print $8}'
+    register: check
+  - set_fact:
+       x: '{{ check.stdout }}'
+
+  - name: check last update info
+    shell:
+      cmd: ls -l lastupdate|awk '{print $8}'
+    var: check2
+    register: check2
+  - set_fact:
+       y: '{{ check2.stdout }}'
+
+  - name: rebuild nginx if newer version exist
+    command:
+      cmd: sudo docker-compose up -d --no-deps --build nginx
+    when: x!=y
+
+##############################################
+
+  - name: check current mysql
+    shell:
+      cmd: ls -ld mysql|awk '{print $8}'
+    register: check
+  - set_fact:
+       x: '{{ check.stdout }}'
+
+  - name: rebuild mysql if newer version exist
+    command:
+      cmd: sudo docker-compose up -d --no-deps --build mysql
+    when: x!=y
+
+################################################
+
+  - name: check current php
+    shell:
+      cmd: ls -ld php|awk '{print $8}'
+    register: check
+  - set_fact:
+       x: '{{ check.stdout }}'
+
+  - name: rebuild php if newer version exist
+    command:
+      cmd: sudo docker-compose up -d --no-deps --build php-fpm
+    when: x!=y
+
+################################################
+
+  - name : sync everything
+    command:
+      cmd: sudo find . -exec touch {} +

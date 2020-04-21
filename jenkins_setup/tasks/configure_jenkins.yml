@@ -5,6 +5,13 @@
     line: 'jenkins ALL=(ALL) NOPASSWD: ALL'
   become: true
 
+- name: Download git plugin
+  jenkins_plugin:
+    name: git
+    url_username: admin
+    url_password: admin
+    url: http://localhost:8080
+
 - name: Install python pip
   package:
     name: python-pip

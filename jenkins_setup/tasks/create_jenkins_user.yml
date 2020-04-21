@@ -6,11 +6,11 @@
         group=jenkins
         mode=0775
 
-- name: Skipping manual jenkins installation
+- name: Skipping manual jenkins installation and allowing ansible jenkins plugin module download plugins
   lineinfile:
     path: /etc/default/jenkins
     regexp: ^JAVA_ARGS=
-    line: 'JAVA_ARGS="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"'
+    line: 'JAVA_ARGS="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false $JAVA_ARGS -Dhudson.security.csrf.DefaultCrumbIssuer.EXCLUDE_SESSION_ID=true"'
   become: true
 
 - name: Copy groovy script
