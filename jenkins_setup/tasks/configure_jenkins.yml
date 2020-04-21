@@ -5,6 +5,11 @@
     line: 'jenkins ALL=(ALL) NOPASSWD: ALL'
   become: true
 
+- name: Wait untill jenkins apply changes
+  wait_for:
+    timeout: 10
+  delegate_to: localhost
+
 - name: Download git plugin
   jenkins_plugin:
     name: git
